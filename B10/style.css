@@ -1,0 +1,15 @@
+body {
+  display: flex;
+  align-items: center;
+  justify-self: center;
+  height: 100vh;
+}
+.star-rating {
+  width: 1000px;
+  margin: 0 auto;
+  background-color: #e5ba41;
+}
+.star-rating > img {
+  width: 100%;
+  cursor: pointer;
+}

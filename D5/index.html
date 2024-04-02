@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        img {
+            max-width: 500px;
+            height: auto;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="img">
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var imgDiv = document.getElementById('img');
+            function getImage() {
+                let ajax = new XMLHttpRequest();
+                ajax.onload = function () {
+                    if (ajax.status == 200) {
+                        console.log(ajax.responseText);
+
+                        var img = ajax.responseText;
+ 
+
+                        imgDiv.innerHTML = img;
+                    }
+                };
+                ajax.open('GET', 'image.php?image=image1.jpg', true);
+                ajax.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+                ajax.send();
+            }
+            getImage();
+
+        });
+    </script>
+</body>
+
+</html>

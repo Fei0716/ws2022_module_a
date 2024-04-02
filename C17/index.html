@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            font-family: 'Arial';
+        }
+
+        #btn-ripple {
+            width: 300px;
+            height: 200px;
+            font-size: 24px;
+            display: block;
+            margin: 20px auto;
+            position: relative;
+            cursor: pointer;
+            overflow: hidden;
+            background-color: white;
+        }
+
+        #btn-ripple>span {
+            position: absolute;
+            border-radius: 50%;
+            background-color: rgba(0, 0, 0, 0.3);
+
+            width: 100px;
+            height: 100px;
+
+
+            animation: ripple 1s;
+            opacity: 0;
+        }
+
+        @keyframes ripple {
+            from {
+                opacity: 1;
+                transform: scale(0);
+            }
+
+            to {
+                opacity: 0;
+                transform: scale(10);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <button id="btn-ripple">Ripple</button>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const btn = document.getElementById("btn-ripple");
+            btn.addEventListener("click", function (e) {
+                let ripple = document.createElement("span");
+                ripple.classList.add("ripple");
+
+                this.appendChild(ripple);
+
+                let x = e.clientX - e.target.offsetLeft;
+                let y = e.clientY - e.target.offsetTop;
+
+                ripple.style.left = `${x - 50}px`;
+                ripple.style.top = `${y - 50}px`;
+
+                // Remove span after 0.3s 
+                setTimeout(() => {
+                    ripple.remove();
+                }, 300);
+
+            });
+        });
+    </script>
+</body>
+
+</html>

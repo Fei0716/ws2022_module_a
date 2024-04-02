@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        body {
+            background-color: white;
+            color: black;
+
+        }
+
+        button {
+            display: block;
+            margin-left: auto;
+        }
+
+        h1 {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .night-mode {
+            background-color: black;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <button id="btn-mode">Change Mode</button>
+    <h1>Light Mode Test</h1>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var h1 = document.getElementsByTagName('h1')[0];
+            document.getElementById("btn-mode").addEventListener("click", function () {
+                var mode = document.getElementsByTagName('body')[0].classList;
+                mode.toggle('night-mode');
+                if (mode.contains('night-mode')) {
+                    h1.innerHTML = "Night Mode Test";
+                } else {
+                    h1.innerHTML = "Light Mode Test";
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

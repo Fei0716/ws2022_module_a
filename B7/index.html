@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Korean Flag</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="kr-flag">
+        <div class="yin-yang-container">
+            <div class="yin"></div>
+            <div class="yang"></div>
+        </div>
+        <div id="strcontainer1">
+            <div class="fullstr"></div>
+            <div class="fullstr"></div>
+            <div class="fullstr"></div>
+        </div>
+
+        <div id="strcontainer2">
+            <div class="fullstr"></div>
+            <div class="halfstr"></div>
+            <div class="fullstr"></div>
+        </div>
+
+        <div id="strcontainer3">
+            <div class="halfstr"></div>
+            <div class="fullstr"></div>
+            <div class="halfstr"></div>
+        </div>
+
+        <div id="strcontainer4">
+            <div class="halfstr"></div>
+            <div class="halfstr"></div>
+            <div class="halfstr"></div>
+        </div>
+    </div>
+
+    <svg width="300" height="200" id="flag">
+        <rect width="300" height="200" fill="white" stroke="black" x="0" y="0" />
+        <path d="M80,100 C80,10 220,10 220,100" fill="#c40e2f" />
+        <path d="M80,100 C80,190 220,190 220,100" fill="#003478" />
+
+        <path d="M80,100 C80,150 150,150 150,100" fill="#c40e2f" />
+        <path d="M150,100 C150,50 220,50 220,100" fill="#003478" />
+
+        <g id="lines-1">
+            <line x1="50" y1="50" x2="110" y2="50" stroke="black" stroke-width="10" />
+            <line x1="50" y1="65" x2="110" y2="65" stroke="black" stroke-width="10" />
+            <line x1="50" y1="80" x2="110" y2="80" stroke="black" stroke-width="10" />
+        </g>
+
+        <g id="lines-2">
+            <line x1="50" y1="150" x2="110" y2="150" stroke="black" stroke-width="10" />
+            <line x1="50" y1="165" x2="110" y2="165" stroke="black" stroke-width="10" stroke-dasharray="27.5,5,27.5" />
+            <line x1="50" y1="180" x2="110" y2="180" stroke="black" stroke-width="10" />
+        </g>
+
+        <g id="lines-3">
+            <line x1="240" y1="50" x2="300" y2="50" stroke="black" stroke-width="10" stroke-dasharray="27.5,5,27.5" />
+            <line x1="240" y1="65" x2="300" y2="65" stroke="black" stroke-width="10" />
+            <line x1="240" y1="80" x2="300" y2="80" stroke="black" stroke-width="10" stroke-dasharray="27.5,5,27.5" />
+        </g>
+
+        <g id="lines-4">
+            <line x1="240" y1="150" x2="300" y2="150" stroke="black" stroke-width="10" stroke-dasharray="27.5,5,27.5" />
+            <line x1="240" y1="165" x2="300" y2="165" stroke="black" stroke-width="10" stroke-dasharray="27.5,5,27.5" />
+            <line x1="240" y1="180" x2="300" y2="180" stroke="black" stroke-width="10" stroke-dasharray="27.5,5,27.5" />
+        </g>
+    </svg>
+</body>
+
+</html>

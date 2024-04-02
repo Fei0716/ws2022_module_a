@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        .btn-join,
+        .btn-leave {
+            padding: 12px;
+            width: 200px;
+            margin: 0 auto;
+            display: block;
+        }
+
+        main {
+            display: flex;
+            height: 500px
+        }
+
+        .user-container {
+            flex-basis: 30%;
+            padding: 12px;
+            border-right: 2px solid #000;
+            border-bottom: 2px solid #000;
+            overflow-y: auto;
+        }
+
+        .chat-container {
+            padding: 12px;
+            flex-basis: 70%;
+            border-bottom: 2px solid #000;
+
+        }
+
+        .chat {
+            width: 50%;
+        }
+
+        .hide {
+            display: none !important;
+        }
+
+        .name {
+            text-align: center;
+        }
+
+
+        .chats {
+            height: 450px;
+            width: 100%;
+            overflow-y: auto;
+        }
+
+        .chat {
+            width: 50%;
+        }
+
+        .chat-send {
+            margin-left: auto;
+            text-align: end;
+            padding: 20px 0;
+        }
+
+        .chat-input {
+            display: flex;
+            height: 30px;
+        }
+
+        .chat-input>input {
+            width: 80%;
+        }
+
+        .chat-input>button {
+            width: 20%;
+        }
+
+        .user-list-title {
+            padding: 12px;
+            width: 200px;
+            margin: 0 auto;
+            border: 1px solid black;
+            font-weight: bold;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <main role="main">
+        <div class="user-container">
+            <div class="users"></div>
+        </div>
+        <div class="chat-container">
+            <div class="chats">
+
+            </div>
+            <div class="chat-input">
+                <input type="text" name="message" id="message">
+                <button class="btn-send">Send</button>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const usersDiv = document.querySelector('.users');
+            const chatContainer = document.querySelector('.chat-container');
+            const chatDiv = document.querySelector('.chats');
+            const chatInputDiv = document.querySelector('.chat-input');
+            const btnSend = document.querySelector('.btn-send');
+            const inputMessage = document.querySelector('#message');
+            let name = "";
+            let getUsersMessagesInterval = "";
+
+            reset();
+
+            function join() {
+                name = prompt('Please enter your username');
+                if (name) {
+                    document.getElementsByClassName('btn-join')[0].classList.remove('hide');
+                    chatInputDiv.classList.remove('hide');
+                    chatDiv.classList.remove('hide');
+
+                    let loggedInUsers = JSON.parse(localStorage.getItem('loggedInUsers')) ?? [];
+                    if (loggedInUsers.findIndex((user) => user.username == name) == -1) {
+                        loggedInUsers.push({
+                            username: name
+                        });
+                    }
+
+
+                    localStorage.setItem('loggedInUsers', JSON.stringify(loggedInUsers));
+                    getUsers();
+                    getMessage();
+
+                    getUsersMessagesInterval = setInterval(() => {
+                        getUsers();
+                        getMessage();
+                    }, 5000);
+                }
+            }
+            function getUsers() {
+                let users = JSON.parse(localStorage.getItem('loggedInUsers')) ?? [];
+                usersDiv.innerHTML = `
+                    <button class="btn-leave">Leave Chat</button>
+                    <h1 class="name">${name}</h1>
+                    <div class="user-list-title">Current Users</div>
+                `;
+                users.forEach(function (user) {
+                    usersDiv.innerHTML += `<div>${user.username}</div>`
+                });
+
+                document.querySelector('.btn-leave').addEventListener('click', logout);
+            }
+            async function getMessage() {
+                try {
+                    let response = await fetch('chat.php?getMessage');
+                    if (!response.ok) {
+                        throw new Error('Failed to get chat message');
+                    }
+                    let data = await response.json();
+                    chatDiv.innerHTML = '';
+                    data.forEach(function (message) {
+                        if (message.username == name) {
+                            chatDiv.innerHTML += `
+                                    <div class="chat chat-send">
+                                        <b>${message.username}</b>
+                                        <div>${message.content}</div>
+                                    </div>
+                                `
+                        } else {
+                            chatDiv.innerHTML += `
+                                    <div class="chat chat-receive">
+                                        <b>${message.username}</b>
+                                        <div>${message.content}</div>
+                                    </div>
+                                `
+                        }
+                    })
+                } catch (e) {
+                    console.log('Get message error', e);
+                }
+            }
+            function logout() {
+                let loggedInUsers = JSON.parse(localStorage.getItem('loggedInUsers')) ?? [];
+                let userIndex = loggedInUsers.findIndex(user => user.username == name);
+                loggedInUsers.splice(userIndex, 1);
+                localStorage.setItem('loggedInUsers', JSON.stringify(loggedInUsers));
+                reset();
+            }
+
+            function reset() {
+                usersDiv.innerHTML = `
+                    <button class="btn-join">Join Chat</button>
+                `;
+                document.getElementsByClassName('btn-join')[0].addEventListener("click", join);
+                clearInterval(getUsersMessagesInterval);
+                chatDiv.classList.add('hide');
+                chatInputDiv.classList.add('hide');
+            }
+
+            async function sendMessage(message) {
+                try {
+                    let response = await fetch('chat.php', {
+                        method: 'POST',
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            message: message,
+                            sender: name,
+                        })
+                    });
+                    if (!response.ok) {
+                        throw new Error('Failed to send message');
+                    }
+                    getMessage();
+                } catch (e) {
+                    console.log('Send Message Error');
+                }
+            }
+
+            btnSend.addEventListener("click", function () {
+                let message = inputMessage.value.trim();
+                if (message) {
+                    sendMessage(message);
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

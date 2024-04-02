@@ -1,0 +1,35 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+.d-flex {
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: row;
+  overflow-x: hidden;
+}
+header {
+  background-color: rgb(60, 60, 60);
+  color: white;
+  font-family: "Arial";
+  font-weight: bold;
+  font-style: italic;
+  padding: 12px 0;
+  font-size: 24px;
+  white-space: nowrap;
+  display: flex;
+  animation: slide 6s linear infinite;
+}
+header > div {
+  width: 250px !important;
+  text-align: center;
+}
+@keyframes slide {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-1250px);
+  }
+}

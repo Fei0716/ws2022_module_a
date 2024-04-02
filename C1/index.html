@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>Contents</h1>
+
+    <div style="margin-bottom: 20px" id="content">
+        This is a WorldSkills Competition Paper D. In this paper, you are
+        expected to
+        design a poster to welcome
+        visitors to your country.</div>
+
+    <input type="search" name="search" id="search">
+    <button id="btn-search">Search</button>
+
+    <script src="jquery.min.js"></script>
+    <script>
+        jQuery(document).ready(function ($) {
+            $('#btn-search').on('click', function () {
+                var input = $('#search').val();
+                var color = 'rgba(' + Math.floor(Math.random() * 255) + ',' + Math.floor(Math.random() * 255) + ',' + Math.floor(Math.random() * 255) + ')';
+                var content = $('#content').html();
+                var regex = new RegExp(`${input}`, 'g');
+                if (input != '') {
+                    content = content.replace(regex, `<span style="background-color: ${color}">${input}</span>`)
+                }
+                $('#content').html(content);
+            });
+        });
+    </script>
+</body>
+
+</html>

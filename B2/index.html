@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>B2</title>
+
+    <style>
+        .todo {
+            margin: 12px 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        label {
+            text-decoration: none;
+            transition: text-decoration 0.5s ease;
+            position: relative;
+        }
+
+        label::before {
+            content: " ";
+            position: absolute;
+            height: 1px;
+            width: 0;
+            background-color: black;
+            top: 50%;
+            transition: 0.5s ease;
+        }
+
+        .checkbox {
+            height: 25px;
+            width: 20px;
+            border: 1px solid black;
+
+        }
+
+        input[type="checkbox"]:checked~label {
+            font-style: italic;
+        }
+
+        input[type="checkbox"]:checked~label::before {
+            width: 50px;
+        }
+
+        input[type="checkbox"]:checked~.checkbox {
+            border-top: none;
+            border-left: none;
+            transform: rotate(45deg);
+
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Todo List</h1>
+    <div class="todo-container">
+        <div class="todo">
+            <input type="checkbox" id="check-1" hidden>
+            <div class="checkbox"></div>
+            <label for="check-1">Item 1
+            </label>
+        </div>
+
+        <div class="todo">
+            <input type="checkbox" id="check-2" hidden>
+            <div class="checkbox"></div>
+            <label for="check-2">Item 2</label>
+        </div>
+
+        <div class="todo">
+            <input type="checkbox" id="check-3" hidden>
+            <div class="checkbox"></div>
+            <label for="check-3">Item 3</label>
+        </div>
+
+        <div class="todo">
+            <input type="checkbox" id="check-4" hidden>
+            <div class="checkbox"></div>
+            <label for="check-4">Item 4</label>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,50 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  box-sizing: border-box;
+}
+main {
+  perspective: 1000px;
+  height: 200px;
+  width: 300px;
+}
+.rect {
+  transform-style: preserve-3d;
+  height: 250px;
+  width: 300px;
+  backface-visibility: hidden;
+  animation: rotate 8s linear infinite;
+  position: relative;
+}
+.rect > div {
+  position: absolute;
+}
+img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  border: 2px solid black;
+}
+.rect-1 {
+  transform: rotateY(-90deg) translateZ(-150px);
+}
+.rect-2 {
+  transform: translateZ(150px);
+}
+.rect-3 {
+  transform: rotateY(90deg) translateZ(-150px);
+}
+.rect-4 {
+  transform: rotateY(-180deg) translateZ(150px);
+}
+
+@keyframes rotate {
+  from {
+    transform: rotateY(0);
+  }
+  to {
+    transform: rotateY(360deg);
+  }
+}

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spotlight</title>
+    <style>
+        .img-container {
+            position: relative;
+        }
+
+        #spotlight {
+            display: none;
+            position: absolute;
+            background-color: rgba(255, 255, 255, 0.5);
+            filter: blur(2px);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="img-container">
+        <img src="background.jpg" alt="Spotlight Image" height="400px" id="img-spotlight" width="250px">
+        <div id="spotlight"></div>
+    </div>
+
+    <script src="jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            let spotlightSize = 50; // Initial size of the spotlight
+            $('#img-spotlight').on('mouseenter', function () {
+                $('#spotlight').css('display', 'block');
+            });
+            $('#img-spotlight').on('mousemove', function (e) {
+                x = e.offsetX - spotlightSize / 2;
+                y = e.offsetY - spotlightSize / 2;
+                $('#spotlight').css('left', x + 'px');
+                $('#spotlight').css('top', y + 'px');
+
+            });
+
+            $(window).on('wheel', function (e) {
+                e.preventDefault();
+                if (e.originalEvent.deltaY < 0) { //if scrolling up
+                    spotlightSize += 10; // Increase spotlight size
+                } else {
+                    spotlightSize -= 10; // Decrease spotlight size
+                }
+                spotlightSize = Math.max(spotlightSize, 10); // Minimum size of 10px
+                $('#spotlight').css('width', spotlightSize + 'px');
+                $('#spotlight').css('height', spotlightSize + 'px');
+            });
+
+        });
+    </script>
+</body>
+
+</html>

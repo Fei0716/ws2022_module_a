@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .container {
+            font-size: 14px;
+            color: #666;
+            width: 600px;
+            margin: 50px auto;
+            padding: 15px;
+            resize: horizontal;
+            box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            white-space: nowrap;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="wrap">
+            <span class="txt"> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias, quia!</span>
+        </div>
+    </div>
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const text = document.querySelector('.txt');
+            let str = text.textContent;
+            const wrap = document.querySelector('.wrap');
+            let originalStr = str; // Store the original text content
+            let strArray = [...str];
+            let lastTargetWidth = wrap.getBoundingClientRect().width;
+            let ellipsisAdded = false;
+
+            const resizeObserver = new ResizeObserver((entries) => {
+                for (entry of entries) {
+                    const { target } = entry;
+                    const currentWidth = target.getBoundingClientRect().width;
+
+                    if (currentWidth <= text.getBoundingClientRect().width) {
+                        if (lastTargetWidth > currentWidth) {
+                            let cutOff = strArray.length % 2 == 0 ? strArray.length / 2 : Math.floor(strArray.length / 2);
+                            strArray.splice(cutOff, 1);
+                            text.innerHTML = strArray.join('').substr(0, cutOff - 1) + "..." + strArray.join('').substr(cutOff);
+                            ellipsisAdded = true;
+                        }
+                    } else if (lastTargetWidth < currentWidth && ellipsisAdded) {
+                        // Incrementally add characters back
+                        let cutOff = Math.floor(originalStr.length / 2);
+                        strArray = [...originalStr];
+                        while (text.getBoundingClientRect().width < currentWidth) {
+                            cutOff++;
+                            text.textContent = originalStr.substr(0, cutOff - 1) + originalStr.substr(cutOff);
+                        }
+                        ellipsisAdded = false;
+                    }
+                    lastTargetWidth = currentWidth;
+                }
+            });
+            resizeObserver.observe(wrap);
+        });
+
+    </script>
+</body>
+
+</html>

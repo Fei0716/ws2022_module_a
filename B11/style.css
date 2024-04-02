@@ -1,0 +1,105 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+body {
+  background-color: black;
+  overflow: hidden;
+}
+.content {
+  position: relative;
+  background: url("./images/1.png") no-repeat;
+  background-size: cover;
+  height: 100vh;
+  background-position: 0 50%;
+  transition: filter 1s ease-in-out;
+  z-index: 3;
+  filter: contrast(2.5) saturate(1.5) brightness(0.5) hue-rotate(0);
+}
+
+.moveMoon {
+  animation: moveMoonDown 0.5s linear infinite;
+}
+
+#cloud-1 {
+  position: absolute;
+  right: 0px;
+  top: 16px;
+  height: 40px;
+  animation: cloud-move 32s linear infinite;
+  z-index: 0 !important;
+}
+#cloud-2 {
+  position: absolute;
+  right: 0px;
+  top: 90px;
+  height: 80px;
+  z-index: 0 !important;
+
+  animation: cloud-move 20s linear infinite;
+}
+.ms-container {
+  height: 100vh;
+  width: 100vh;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(250deg);
+  transition: transform 1s ease-out;
+}
+
+#moon {
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  height: 200px;
+  width: 200px;
+  right: 0;
+  filter: none !important;
+}
+#sun {
+  position: absolute;
+  z-index: 2;
+  height: 200px;
+  width: 200px;
+  left: 0;
+  top: 50%;
+  bottom: 20px;
+}
+button {
+  cursor: pointer;
+  z-index: 4;
+}
+button#day {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  padding: 8px 12px;
+  background-color: rgb(255, 224, 112);
+}
+button#day:hover {
+  background-color: rgb(1, 1, 141);
+  color: white;
+}
+button#night {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  padding: 8px 12px;
+  background-color: rgb(1, 1, 141);
+  color: white;
+}
+button#night:hover {
+  background-color: rgb(255, 224, 112);
+  color: black;
+}
+
+@keyframes cloud-move {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100vw);
+  }
+}

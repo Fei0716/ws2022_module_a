@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var romanMatrix = [
+                [1000, 'M'],
+                [900, 'CM'],
+                [500, 'D'],
+                [400, 'CD'],
+                [100, 'C'],
+                [90, 'XC'],
+                [50, 'L'],
+                [40, 'XL'],
+                [10, 'X'],
+                [9, 'IX'],
+                [5, 'V'],
+                [4, 'IV'],
+                [1, 'I']
+            ];
+            console.log(convertToRoman(1200));
+
+            function convertToRoman(num) {
+                if (num === 0) {
+                    return '';
+                }
+                for (var i = 0; i < romanMatrix.length; i++) {
+                    if (num >= romanMatrix[i][0]) {
+                        return romanMatrix[i][1] + convertToRoman(num - romanMatrix[i][0]);
+                    }
+                }
+            }
+            function convertToInt(romanNumber) {
+                let currentValue = 0;
+                let result = 0;
+                const string = romanNumber.split('');
+                const romanNumbers = {
+                    I: 1,
+                    V: 5,
+                    X: 10,
+                    L: 50,
+                    C: 100,
+                    D: 500,
+                    M: 1000,
+                };
+                let firstNum = romanNumbers[string[0].toUpperCase()];
+                for (let char of string) {
+                    currentValue = romanNumbers[char.toUpperCase()];
+                    if (currentValue <= firstNum) {
+                        result += currentValue;
+                    } else {
+                        result = currentValue - result;
+                    }
+                }
+                console.log(`Roman: ${romanNumber}\nInteger: ${result} \n \n`);
+                return result;
+            }
+
+            convertToInt('I');
+            convertToInt('IV');
+            convertToInt('VI');
+            convertToInt('IX');
+            convertToInt('X');
+            convertToInt('XI');
+            convertToInt('XII');
+            convertToInt('XL');
+            convertToInt('LV');
+            convertToInt('MMM');
+        });
+    </script>
+</body>
+
+</html>

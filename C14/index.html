@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        .container {
+            position: relative;
+            width: fit-content;
+        }
+
+        canvas {
+            width: 500px;
+            height: auto;
+        }
+
+        .magnifying-glass {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            border: 1px solid black;
+            border-radius: 100%;
+            display: none;
+            pointer-events: none;
+            background-repeat: no-repeat;
+            overflow: hidden;
+
+        }
+
+        .magnifying-glass::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-size: 10px 10px;
+            background-image:
+                linear-gradient(to right, rgba(209, 209, 209, 0.562) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(209, 209, 209, 0.562) 1px, transparent 1px);
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+
+        .magnifying-glass::after {
+            content: '';
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background-color: red;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    </style>
+</head>
+
+<body>
+    <label for="upload-image">Upload Image</label>
+    <input type="file" name="upload-image" id="upload-image" accept="image/*">
+    <div class="container">
+        <canvas width="500" height="450" id="img-upload" hidden></canvas>
+        <div class="magnifying-glass" id="magnifying-glass"></div>
+    </div>
+    <div>
+        <b id="color-code"></b>
+        <b id="color"></b>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var input = document.getElementById('upload-image');
+            var canvas = document.getElementById('img-upload');
+            var magnifyingGlass = document.getElementById('magnifying-glass');
+            var colorCode = document.getElementById('color-code');
+            var colorName = document.getElementById('color');
+
+            input.addEventListener('change', function (e) {
+                const file = e.target.files[0];
+                if (file) {
+                    const image = new Image();
+                    image.onload = () => {
+                        canvas.hidden = false;
+                        const ctx = canvas.getContext('2d');
+                        ctx.drawImage(image, 0, 0, 500, 450);
+                        URL.revokeObjectURL(file)
+                    };
+                    image.src = URL.createObjectURL(file);
+                }
+            });
+
+            canvas.addEventListener('mousemove', function (e) {
+                const rect = canvas.getBoundingClientRect();
+                const x = e.offsetX;
+                const y = e.offsetY;
+
+                magnifyingGlass.style.left = e.clientX + 10 + 'px';
+                magnifyingGlass.style.top = e.clientY + 10 + 'px';
+                magnifyingGlass.style.display = 'block';
+
+                const magnifierSize = 100;
+                const magnifierBorderWidth = 1;
+                const scaleFactor = 3; // Adjust the magnification scale factor as needed
+
+                magnifyingGlass.style.width = magnifierSize + 'px';
+                magnifyingGlass.style.height = magnifierSize + 'px';
+
+
+                const bgPosX = (x * scaleFactor) - (magnifierSize / 2);
+                const bgPosY = (y * scaleFactor) - (magnifierSize / 2);
+
+                magnifyingGlass.style.backgroundImage = `url("${canvas.toDataURL()}")`;
+                magnifyingGlass.style.backgroundSize = `${rect.width * scaleFactor}px ${rect.height * scaleFactor}px`;
+                magnifyingGlass.style.backgroundPosition = `-${bgPosX}px -${bgPosY}px`;
+
+                const ctx = canvas.getContext('2d');
+                const pixel = ctx.getImageData(x, y, 1, 1).data;
+                const color = `rgb(${pixel[0]}, ${pixel[1]}, ${pixel[2]})`;
+
+                colorCode.innerText = 'Color code: ' + color.toUpperCase();
+                colorName.innerHTML = `
+                    <div>Color: 
+                        <div style="background-color:${color};width:25px;height: 25px;"></div>                        
+                    </div>
+                `;
+            });
+
+            canvas.addEventListener('mouseout', function () {
+                magnifyingGlass.style.display = 'none';
+                colorCode.innerText = ''; // Clear color code
+                colorName.innerText = ''; // Clear color name
+            });
+
+
+        });
+
+    </script>
+</body>
+
+</html>

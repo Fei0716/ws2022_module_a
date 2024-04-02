@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>B11</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="content">
+        <img src="images/4.png" alt="cloud-1" id="cloud-1">
+        <img src="images/4.png" alt="cloud-2" id="cloud-2">
+    </div>
+
+    <div class="ms-container">
+        <img src="images/3.png" alt="moon" id="moon">
+        <img src="images/2.png" alt="sun" id="sun">
+    </div>
+
+
+    <button id="day">Day</button>
+    <button id="night">Night</button>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const btnDay = document.getElementById("day");
+            const btnNight = document.getElementById("night");
+
+            btnDay.addEventListener('click', () => {
+                document.querySelector('body').style.backgroundImage = "linear-gradient(180deg, rgb(255, 224, 112) 0%, rgb(196, 185, 144) 50%)";
+                document.querySelector('.content').style.filter = "contrast(1.5) saturate(1) brightness(1) hue-rotate(210deg)";
+                document.querySelector('.ms-container').style.transform = "translate(-50%, -50%) rotate(120deg)";
+                document.querySelector('#moon').classList.add('moveMoon');
+
+            });
+
+            btnNight.addEventListener('click', () => {
+                document.querySelector('body').style.backgroundImage = "none";
+                document.querySelector('.content').style.filter = "contrast(2.5) saturate(1.5) brightness(0.5) hue-rotate(0deg)";
+                document.querySelector('.ms-container').style.transform = "translate(-50%, -50%) rotate(250deg)";
+            });
+        });
+    </script>
+</body>
+
+
+</html>

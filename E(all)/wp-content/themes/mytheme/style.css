@@ -1,0 +1,27 @@
+/*
+    Template: Blankslate
+    Theme Name: My Theme
+
+*/
+body {
+  background: #eee;
+}
+
+/* movie */
+.movie {
+  display: flex;
+  gap: 24px;
+}
+
+.movie .info {
+  flex-grow: 1;
+}
+
+.movie .genre {
+  font-size: 11px;
+  padding: 0.25rem 0.75rem;
+  border: var(--bs-primary) solid 1px;
+  border-radius: 50rem;
+  color: var(--bs-primary);
+  cursor: pointer;
+}

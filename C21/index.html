@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        div {
+            color: rgba(255, 255, 255, 0.748);
+        }
+    </style>
+</head>
+
+<body>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            generateBubble();
+
+
+            function generateBubble() {
+                var bubbleCount = 15;
+                for (var i = 0; i < bubbleCount; i++) {
+                    var color = `rgb(${Math.floor(Math.random() * 256)} ,${Math.floor(Math.random() * 256)} , ${Math.floor(Math.random() * 256)})`;
+                    var x = Math.floor(Math.random() * (window.innerWidth - 50)); // Adjusted for bubble size
+                    var y = Math.floor(Math.random() * (window.innerHeight - 50)); // Adjusted for bubble size
+                    // Ensure the bubble stays within the viewport
+                    if (y + 50 > window.innerHeight) {
+                        y = window.innerHeight - 50;
+                    }
+                    var bubble = document.createElement('div');
+                    bubble.style.cssText = `
+                        position: absolute;
+                        top: ${y}px;
+                        left: ${x}px;
+                        background-color: ${color};
+                        border-radius: 50%;
+                        height: 50px;
+                        width: 50px;
+                        box-shadow: 0 20px 30px rgba(0, 0, 0, 0.2);
+                        background-image: radial-gradient(farthest-corner at 25px 25px, rgba(255, 255, 255, 0.748) 25%, ${color} 100%); 
+        
+                    `;
+                    document.getElementsByTagName("body")[0].appendChild(bubble);
+                }
+                if (bubbleCount > 10) {
+                    var deleteCount = bubbleCount - 10;
+                    for (let i = 0; i < deleteCount; i++) {
+                        document.getElementsByTagName("div")[i].remove();
+                    }
+                }
+
+            }
+        });
+    </script>
+</body>
+
+</html>

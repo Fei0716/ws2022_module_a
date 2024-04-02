@@ -1,0 +1,26 @@
+/**
+Your Code
+ */
+
+.photo-item:nth-child(n + 8) ~ .photo-item:not(:last-child) {
+  position: absolute;
+  top: -9999px;
+  counter-increment: extraImage;
+}
+.photo-item {
+  position: relative;
+}
+
+.photo-item:nth-child(n + 10) > img {
+  filter: brightness(0.45);
+}
+.photo-item:nth-child(n + 10)::after {
+  content: "+  " counter(extraImage);
+  position: absolute;
+  font-weight: bold;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 26px;
+}

@@ -1,0 +1,211 @@
+/* my code */
+/* .particle-btn::before {
+  content: " ";
+  position: absolute;
+  top: -90%;
+  left: -10%;
+  height: 100%;
+  display: block;
+  width: 140%;
+  background-image: radial-gradient(circle, #ff598c 3%, transparent 1%),
+    radial-gradient(circle, #ff598c 12%, transparent 8%),
+    radial-gradient(circle, #ff598c 3%, transparent 3%),
+    radial-gradient(circle, #ff598c 24%, transparent 7%);
+  background-repeat: no-repeat;
+  background-size: 179% 127%, 52% 119%, 118% 82%, 6% 70%;
+  transition: 0.4s ease;
+}
+
+.particle-btn::after {
+  content: " ";
+  position: absolute;
+  top: 90%;
+  left: -27%;
+  height: 100%;
+  display: block;
+  transform: rotate(180deg);
+  width: 140%;
+  background-image: radial-gradient(circle, #ff598c 3%, transparent 1%),
+    radial-gradient(circle, #ff598c 12%, transparent 8%),
+    radial-gradient(circle, #ff598c 3%, transparent 3%),
+    radial-gradient(circle, #ff598c 24%, transparent 7%);
+  background-repeat: no-repeat;
+  background-size: 179% 127%, 52% 119%, 118% 82%, 6% 70%;
+  transition: 0.3s ease;
+}
+.particle-btn:active::before,
+.particle-btn:active::after {
+  animation: ripple 0.5s ease;
+}
+
+@keyframes ripple {
+  0%,
+  100% {
+    max-height: 0%;
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+    max-height: 100%;
+  }
+} */
+
+.particle {
+  background-color: #ff598c;
+  border-radius: 50%;
+  height: 10px;
+  width: 10px;
+  transform: scale(0);
+  position: absolute;
+}
+/* left */
+.particle-1 {
+  top: 50%;
+  left: -25px;
+}
+/* top */
+.particle-2 {
+  top: -25%;
+  left: -19px;
+}
+.particle-3 {
+  top: -37%;
+  left: 25px;
+}
+.particle-4 {
+  top: -23%;
+  right: 25px;
+}
+.particle-5 {
+  top: -50%;
+  right: -25px;
+}
+/* bottom */
+.particle-6 {
+  bottom: -50%;
+  left: -25px;
+}
+.particle-7 {
+  bottom: -37%;
+  left: 25px;
+}
+.particle-8 {
+  bottom: -23%;
+  right: 25px;
+}
+.particle-9 {
+  bottom: -50%;
+  right: -25px;
+}
+.particle-btn:active .particle-1 {
+  animation: rippleLeft 0.3s ease;
+}
+/* top animation */
+.particle-btn:active .particle-2 {
+  animation: rippleTopLeft1 0.3s ease;
+}
+.particle-btn:active .particle-3 {
+  animation: rippleTopLeft2 0.3s ease;
+}
+.particle-btn:active .particle-4 {
+  animation: rippleTopRight1 0.3s ease;
+}
+.particle-btn:active .particle-5 {
+  animation: rippleTopRight2 0.3s ease;
+}
+/* bottom animation*/
+.particle-btn:active .particle-6 {
+  animation: rippleBottomLeft1 0.3s ease;
+}
+.particle-btn:active .particle-7 {
+  animation: rippleBottomLeft2 0.3s ease;
+}
+.particle-btn:active .particle-8 {
+  animation: rippleBottomRight1 0.3s ease;
+}
+.particle-btn:active .particle-9 {
+  animation: rippleBottomRight2 0.3s ease;
+}
+@keyframes rippleLeft {
+  from {
+    transform: translate(0px) scale(1);
+  }
+  to {
+    transform: translate(-15px) scale(0.2);
+  }
+}
+/* top */
+@keyframes rippleTopLeft1 {
+  from {
+    transform: translateY(0px) translateX(0px) scale(1);
+  }
+  to {
+    transform: translateY(-30px) translateX(-15px) scale(0.2);
+  }
+}
+@keyframes rippleTopLeft2 {
+  from {
+    transform: translateY(0px) translateX(0px) scale(0.8);
+  }
+  to {
+    transform: translateY(-15px) translateX(-5px) scale(0.2);
+  }
+}
+@keyframes rippleTopRight1 {
+  from {
+    transform: translateY(15px) translateX(-5px) scale(1);
+  }
+  to {
+    transform: translateY(-15px) translateX(5px) scale(0.2);
+  }
+}
+@keyframes rippleTopRight2 {
+  from {
+    transform: translateY(0) translateX(0) scale(0.8);
+  }
+  to {
+    transform: translateY(-15px) translateX(5px) scale(0.2);
+  }
+}
+@keyframes rippleBottom {
+  from {
+    transform: translateY(0px) scale(0.8);
+  }
+  to {
+    transform: translateY(15px) scale(0.2);
+  }
+}
+
+@keyframes rippleBottomLeft1 {
+  from {
+    transform: translateY(0px) translateX(0px) scale(1);
+  }
+  to {
+    transform: translateY(30px) translateX(-15px) scale(0.2);
+  }
+}
+
+@keyframes rippleBottomLeft2 {
+  from {
+    transform: translateY(0px) translateX(0px) scale(0.8);
+  }
+  to {
+    transform: translateY(15px) translateX(-5px) scale(0.2);
+  }
+}
+@keyframes rippleBottomRight1 {
+  from {
+    transform: translateY(-15px) translateX(-5px) scale(1);
+  }
+  to {
+    transform: translateY(15px) translateX(5px) scale(0.2);
+  }
+}
+@keyframes rippleBottomRight2 {
+  from {
+    transform: translateY(0) translateX(0) scale(0.8);
+  }
+  to {
+    transform: translateY(15px) translateX(5px) scale(0.2);
+  }
+}

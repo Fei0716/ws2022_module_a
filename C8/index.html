@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #000;
+            height: 100vh;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .firework {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            opacity: 0;
+            animation: explode 0.8s ease;
+        }
+
+        /* different sequences of firework */
+        .firework-1 {
+            background: url('./firework_sprites(edited).png') -150px;
+            background-size: cover;
+
+        }
+
+        .firework-3 {
+            background: url('./firework_sprites(edited).png') -300px;
+            background-size: cover;
+
+        }
+
+        .firework-2 {
+            background: url('./firework_sprites(edited).png') -750px;
+            background-size: cover;
+
+        }
+
+        .firework-4 {
+            background: url('./firework_sprites(edited).png') -1050px;
+            background-size: cover;
+
+        }
+
+        .firework-5 {
+            background: url('./firework_sprites(edited).png') -1350px;
+            background-size: cover;
+
+        }
+
+        .firework-6 {
+            background: url('./firework_sprites(edited).png') -1650px;
+            background-size: cover;
+
+        }
+
+        @keyframes explode {
+            from {
+                transform: scale(0.8);
+                opacity: 1;
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <script src="main.js"></script>
+    <div class="firework"></div>
+</body>
+
+</html>

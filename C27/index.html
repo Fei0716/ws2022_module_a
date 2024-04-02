@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="./main.css" />
+  <title>Customer Reviews</title>
+</head>
+
+<body>
+  <div class="container mx-auto">
+    <div class="flex items-start justify-between w-full pt-5">
+      <div class="flex flex-col w-2/3" id="reviews">
+
+      </div>
+      <div class="shadow w-1/5 ml-10 px-4 py-2">
+        <h2>Average rate</h2>
+        <p class="text-3xl font-bold text-green-500">
+          <span id="average">4.3</span><small class="text-sm inline-block ml-1 text-gray-700">/5</small>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const reviews = fetch("./data.json").then(async (res) => {
+        const data = await res.json();
+        let validReviews = [];
+
+        data.sort((a, b) => {
+          return new Date(b.date) - new Date(a.date);
+        });
+        validReviews = data.filter((a) => {
+          return a.published == true;
+        })
+
+        let average = sum = 0;
+        console.log(validReviews);
+        validReviews.forEach(function (review) {
+          let validReview = "";
+          let starDiv = document.createElement('div');
+          starDiv.classList.add('stars');
+          starDiv.innerHTML = `
+           <img src="star.svg" alt="star" class="w-4" />
+          `;
+          for (let i = 1; i < review.rating; i++) {
+            starDiv.innerHTML += `
+             <img src="star.svg" alt="star" class="w-4 ml-1" />
+            
+            `;
+          }
+
+          sum += review.rating;
+          if (review.certified) {
+            document.getElementById('reviews').innerHTML += `
+                  <div class="user-review-container mt-0">
+                  <article>
+                    <h3>
+                      ${review.author}
+                      <span class="certified-badge">
+                        <img src="certified.svg" alt="certified" class="w-4" />
+                      </span>
+                    </h3>
+                    ${starDiv.outerHTML}
+                    <p>
+                      ${review.content}
+                    </p>
+                  </article >
+                </div >
+                `
+          } else {
+            document.getElementById('reviews').innerHTML += `
+                  <div class="user-review-container mt-0">
+                  <article>
+                    <h3>
+                      ${review.author}
+                    </h3>
+                    ${starDiv.outerHTML}
+                    <p>
+                      ${review.content}
+                    </p>
+                  </article >
+                </div >
+                `
+          }
+        });
+        average = (sum / validReviews.length).toFixed(1);
+
+        document.getElementById("average").innerHTML = average;
+      });
+    });
+  </script>
+</body>
+
+</html>

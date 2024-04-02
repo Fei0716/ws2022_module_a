@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            background-color: rgb(83, 83, 83) !important;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .piano-container {
+            background-color: rgb(92, 56, 22);
+            width: 700px;
+            height: 300px;
+            border-radius: 0.5rem;
+            position: relative;
+        }
+
+        .piano-keys {
+            position: absolute;
+            top: 70%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .piano-white {
+            background-color: white;
+            display: flex;
+            border-radius: 0.5rem;
+        }
+
+        .piano-white>div {
+            height: 250px;
+            width: 71px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            border-radius: 0.25rem;
+            border-right: 2px solid black;
+        }
+
+        .piano-white>div:first-child {
+            border-left: 2px solid black;
+        }
+
+        .piano-black {
+            position: absolute;
+            display: flex;
+            gap: 44px;
+            justify-content: center;
+            left: 11%;
+
+        }
+
+        .piano-black>div {
+            height: 120px;
+            width: 30px;
+            border-bottom-left-radius: 0.5rem;
+            border-bottom-right-radius: 0.5rem;
+            background-color: black;
+        }
+
+        .active {
+            animation: click 1s ease;
+        }
+
+        @keyframes click {
+            from {
+                box-shadow: inset 0px 0px 2px 2px rgba(0, 0, 0, 0.8);
+
+            }
+
+            to {
+                box-shadow: none;
+            }
+
+        }
+    </style>
+</head>
+
+<body>
+    <div class="piano-container">
+        <div class="piano-keys">
+            <div class="piano-black">
+                <div>
+                </div>
+                <div>
+                </div>
+                <div>
+                </div>
+                <div>
+                </div>
+                <div>
+                </div>
+                <div>
+                </div>
+            </div>
+            <div class="piano-white">
+                <div class="a">
+                    <div>Do</div>
+                    <div>A</div>
+                </div>
+                <div class="s">
+                    <div>Re</div>
+                    <div>S</div>
+                </div>
+                <div class="d">
+                    <div>Mi</div>
+                    <div>D</div>
+                </div>
+                <div class="f">
+                    <div>Fa</div>
+                    <div>F</div>
+                </div>
+                <div class="j">
+                    <div>Sol</div>
+                    <div>J</div>
+                </div>
+                <div class="k">
+                    <div>La</div>
+                    <div>k</div>
+                </div>
+                <div class="l">
+                    <div>Si</div>
+                    <div>L</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="audiosynth.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.addEventListener('click', function (e) {
+                if (e.target.matches('div')) {
+
+                    alert('Use the keyboard to start');
+                }
+            });
+            var piano = Synth.createInstrument('piano');
+
+            document.addEventListener('keydown', function (e) {
+                let key = e.key.toLowerCase();
+                document.getElementsByClassName(key)[0].classList.add('active');
+                switch (key) {
+                    case 'a':
+                        piano.play('C', 4, 2);
+                        break;
+                    case 's':
+                        piano.play('D', 4, 2);
+                        break;
+                    case 'd':
+                        piano.play('E', 4, 2);
+                        break;
+                    case 'f':
+                        piano.play('F', 4, 2);
+                        break;
+                    case 'j':
+                        piano.play('G', 4, 2);
+                        break;
+                    case 'k':
+                        piano.play('A', 4, 2);
+                        break;
+                    case 'l':
+                        piano.play('B', 4, 2);
+                        break;
+                    default: break;
+                }
+                setTimeout(() => {
+                    document.getElementsByClassName(key)[0].classList.remove('active');
+                }, 1000)
+            });
+
+        });
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,45 @@
+body {
+  display: flex;
+  justify-content: center;
+  margin-top: 200px;
+}
+
+.star {
+  position: relative;
+  height: 0;
+  width: 0;
+  border-right: 100px solid transparent;
+  border-left: 100px solid transparent;
+  border-bottom: 60px solid rgb(231, 231, 53);
+  animation: rotateInfinite 5s linear infinite;
+}
+
+.star::after {
+  position: absolute;
+  width: 0;
+  height: 0;
+  top: 8px;
+  left: -92px;
+  content: "";
+  border-left: 66px solid transparent;
+  border-right: 108px solid transparent;
+  border-bottom: 60px solid rgb(231, 231, 53);
+  transform: rotate(68deg);
+}
+.star::before {
+  position: absolute;
+  width: 0;
+  height: 0;
+  top: 9px;
+  left: -84px;
+  content: "";
+  border-right: 66px solid transparent;
+  border-left: 108px solid transparent;
+  border-bottom: 60px solid rgb(231, 231, 53);
+  transform: rotate(291deg);
+}
+@keyframes rotateInfinite {
+  100% {
+    transform: rotate(360deg);
+  }
+}

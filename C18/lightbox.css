@@ -1,0 +1,61 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+.lightbox {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
+}
+.lightbox > img {
+  width: 250px;
+  height: 200px;
+  object-fit: cover;
+  cursor: pointer;
+}
+.lightbox-modal {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: none;
+  z-index: 3;
+}
+/* buttons */
+button {
+  font-size: 40px;
+  padding: 10px;
+  cursor: pointer;
+  background-color: transparent !important;
+  border: none;
+  color: white;
+}
+#btn-prev {
+  position: absolute;
+  left: 10%;
+  top: 50%;
+}
+#btn-next {
+  position: absolute;
+  right: 10%;
+  top: 50%;
+}
+#btn-close {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+}
+#lightbox-img {
+  width: 700px;
+  height: 450px;
+  object-fit: cover;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.show {
+  display: block;
+}
